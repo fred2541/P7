@@ -3,9 +3,6 @@ const Book = require('../models/Books');
 const FOLDER_IMAGES = process.env.FOLDER_IMAGES;
 
 
-function genererErreur(message) {
-    throw new Error(message);
-  }
 
 exports.books = (req, res, next) => {
     Book.find()
@@ -23,11 +20,10 @@ exports.booksAdd = (req, res, next) => {
     console.log('Ajout d\'un livre');
     const sharp = require('sharp');
     const fileNameImage = FOLDER_IMAGES + req.file.originalname.split('.').shift() + '-' + Date.now() + '.webp'; // filename without .ext
-
-    console.log(fileNameImage);
+    const fullUrlImage = 'http://localhost:4000/' + fileNameImage;
 
     sharp(req.file.buffer) // request image buffer from multer.memoryStorage
-        .resize(300)
+        .resize(800)
         .webp({ quality: 90 })
         .toFile(fileNameImage, (err, info) => {
             if (err) {
@@ -37,6 +33,7 @@ exports.booksAdd = (req, res, next) => {
 
     const bookObject = JSON.parse(req.body.book);
  
+    bookObject.imageUrl = fullUrlImage;
     delete bookObject.averageRating; // no averageRating on new book
 
     try {

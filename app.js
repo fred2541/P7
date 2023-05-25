@@ -1,11 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path');
 require('dotenv').config(); // https://medium.com/codait/environment-variables-or-keeping-your-secrets-secret-in-a-node-js-app-99019dfff716
-// ADD .env file with:
-// RANDOM_TOKEN_SECRET=YourSecretToken
-// DB_LOGIN=YouLogin
-// DB_PASSWD=YourPasswd
-// CLUSTER_ADDR=ClusterAdresse
 
 
 const DB_LOGIN = process.env.DB_LOGIN;
@@ -18,6 +14,8 @@ const router = express.Router();
 
 const userRoutes = require('./routes/user');
 const bookRoutes = require('./routes/books');
+
+const imagesDirectory = path.join(__dirname, 'images');
 
 mongoose.connect('mongodb+srv://' + DB_LOGIN +':' + DB_PASSWD + '@' + CLUSTER_ADDR + '/?retryWrites=true&w=majority',
   { useNewUrlParser: true,
@@ -36,6 +34,7 @@ app.use((req, res, next) => {
 
 app.use('/api/auth', userRoutes);
 app.use('/api/books', bookRoutes);
+app.use('/images', express.static(imagesDirectory));
 
 
 
