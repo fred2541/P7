@@ -1,0 +1,1 @@
+Dont remove this folder, is used for save picture of books
