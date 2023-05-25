@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const RANDOM_TOKEN_SECRET = process.env.RANDOM_TOKEN_SECRET;
+const TOKEN_EXPIRES_IN = process.env.TOKEN_EXPIRES_IN;
 
 const User = require('../models/User');
 const { json } = require('express');
@@ -40,9 +41,10 @@ exports.login = (req, res, next) => {
                                 token: jwt.sign(
                                     { userId: user._id },
                                     RANDOM_TOKEN_SECRET,
-                                    { expiresIn: '1h'}
+                                    { expiresIn: TOKEN_EXPIRES_IN}
                                 )
                             });
+                            console.log('Connexion ok');
                         }
                     })
                     .catch(error => {

@@ -1,4 +1,5 @@
 const multer = require('multer');
+const sharp = require('sharp');
 
 const MIME_TYPES = {
     'image/jpg': 'jpg',
@@ -6,17 +7,7 @@ const MIME_TYPES = {
     'image/png': 'png',
 };
 
-const storage = multer.diskStorage({
-    destination: (req, file, callback) => {
-        callback(null, 'images')
-    },
-    filename: (req, file, callback) => {
-        const name = file.originalname.split(' ').join('_');
-        const extension = MIME_TYPES[file.mimetype];
-        callback(null, name + Date.now() + '.' + extension);
-    }
-});
+const storage = multer.memoryStorage(); // No support for filename in memoryStorage !!!
+const upload = multer({ storage: storage });
 
-//const storage = multer.memoryStorage();
-
-module.exports = multer({ storage }).single('image');
+module.exports = multer({ upload }).single('image');
