@@ -28,9 +28,9 @@ exports.booksAdd = (req, res, next) => {
     // console.log(imageBuffer);
     
     try {
-        Number(bookObject.year) > new Date(Date.now()).getFullYear() ? genererErreur("Année de publication invalide!") : undefined ;
-        Number(bookObject.year) < 0 ? genererErreur("Année de publication invalide!") : undefined ;
-        bookObject.title.length > 80 ? genererErreur("Titre trop long!") : undefined ;
+        // Number(bookObject.year) > new Date(Date.now()).getFullYear() ? genererErreur("Année de publication invalide!") : undefined ;
+        // Number(bookObject.year) < 0 ? genererErreur("Année de publication invalide!") : undefined ;
+        // bookObject.title.length > 80 ? genererErreur("Titre trop long!") : undefined ;
         const book = new Book({
             userId: req.auth.userId,
             ...bookObject,
