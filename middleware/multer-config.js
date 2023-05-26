@@ -5,7 +5,6 @@ const upload = multer({ storage: storage }).single('image');
 
 const multerMiddleware = (req, res, next) => {
     upload(req, res, (err) => {
-        console.log('multer => next');
       next();
     });
   };

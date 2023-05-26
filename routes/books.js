@@ -12,12 +12,13 @@ const multer = require('../middleware/multer-config');
 const deleteImage = require('../middleware/deleteImage');
 
 router.get('/', bookCtrl.books);
+router.get('/bestrating', bookCtrl.bookBestRating);
 router.get('/:id', bookCtrl.bookId);
-
 
 router.post('/', auth, multer, resizeImage, checkInput, bookCtrl.booksAdd);
 router.post('/:id/rating', auth, checkRatings, bookCtrl.bookRating);
 router.put('/:id', auth, multer, deleteImage, resizeImage, bookCtrl.bookUpdate);
+router.delete('/:id', auth, deleteImage, bookCtrl.bookDelete);
 
 
 module.exports = router;

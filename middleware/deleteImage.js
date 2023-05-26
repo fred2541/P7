@@ -4,7 +4,7 @@ const fs = require("fs"); // for delete file in FS
 const FOLDER_IMAGES = process.env.FOLDER_IMAGES;
 
 const deleteImage = (req, res, next) => {
-  if (req.params.hasOwnProperty("id")) {
+  if (req.params.hasOwnProperty("id") && req.file) { // Only if send new file !
     // Delete old image file before
     const bookId = req.params.id;
     Book.findOne({ _id: bookId }) // Get the book by id
@@ -19,9 +19,15 @@ const deleteImage = (req, res, next) => {
           next();
         } catch (err) {
           console.error("Impossible de supprimer le fichier :", err);
+          next();
         }
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.log('Tentative de suppresson d\'un livre inéxistant !');
+        res.status(200).json({ message: 'Livre supprimer avec succes' });
+      });
+  } else { // No file
+    next();
   }
 };
 

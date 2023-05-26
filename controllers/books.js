@@ -18,7 +18,6 @@ exports.booksAdd = (req, res, next) => {
   console.log("Ajout d'un livre");
 
   const bookObject = JSON.parse(req.body.book);
-  delete bookObject.averageRating; // no averageRating on new book
 
   try {
     const book = new Book({
@@ -38,7 +37,7 @@ exports.bookRating = (req, res, next) => {
   const userId = req.auth.userId;
   const rating = req.body.rating;
 
-  // console.log(req.params.id);
+  // verifier si le userid n'a pas deja noter !!!!!! en cas d'utilisation avec postman !!!!
   Book.findOneAndUpdate(
     { _id: req.params.id }, // request Book by _id
     { $push: { ratings: { userId: userId, grade: rating } } }, // Add the ratings posted by Front
@@ -68,10 +67,43 @@ exports.bookUpdate = (req, res, next) => {
   console.log("Update book");
   const bookObject = JSON.parse(req.body.book);
   const bookIdToUpdate = req.params.id;
+  const userId = req.auth.userId;
+
   try {
-    Book.findByIdAndUpdate(bookIdToUpdate, { ...bookObject})
+    Book.findOneAndUpdate({ _id: bookIdToUpdate, userId: userId }, { ...bookObject})
       .then(() => res.status(200).json({ message: "livre modifier avec succès" }))
   } catch (error) {
-    res.status(500).json({ error});
+    res.status(403).json({ error});
   }
+};
+
+exports.bookDelete = (req, res, next) => {
+  console.log("Delete book");
+  const idToDelete = req.params.id;
+
+  Book.findByIdAndDelete(idToDelete)
+    .then((deletedField) => {
+      if (deletedField) {
+        res.status(200).json({ message: 'Livre supprimer avec succes' });
+      } else {
+        console.log('Tentative de suppresson d\'un livre inéxistant !');
+        res.status(200).json({ message: 'Livre supprimer avec succes' });
+      }
+    })
+};
+
+exports.bookBestRating = (req, res, next) => {
+  console.log("BestRating");
+  
+  Book.find()
+    .sort({ averageRating: -1}) // best rating in first
+    .limit(3) // max result
+    .exec() // run the request
+    .then((books) => {
+      res.status(200).json(books);
+    })
+    .catch((error) => {
+      res.status(500).json({ error: error.message });
+    })
+
 };

@@ -28,7 +28,6 @@ exports.login = (req, res, next) => {
         .then(user => {
             if (user === null) {
                 res.status(401).json( {message: 'Paire identifiant/mot de passe incorrecte'} );
-                console.log('401 user = NULL');
             } else {
                 bcrypt.compare(req.body.password, user.password)
                     .then(valid => {
