@@ -53,3 +53,29 @@ exports.booksAdd = (req, res, next) => {
     // res.status(500).json({ message: "ok :)"})
     
 };
+
+exports.bookRating = (req, res, next) => {
+  const userId = req.auth.userId;
+  const rating = req.body.rating;
+
+  // console.log(req.params.id);
+  Book.findOneAndUpdate(
+    { '_id': req.params.id }, // request Book by _id
+    { $push: { 'ratings': { userId: userId, grade: rating } } }, // Add the ratings posted by Front
+    { new: true } // return the book _id with the push for calculate average with the new note
+  )
+    .then(updatedBook => {
+      const ratingsCount = updatedBook.ratings.length; // number of ratings
+      const totalRating = updatedBook.ratings.reduce((sum, r) => sum + r.grade, 0); // Add all ratings number to totalRating
+      updatedBook.averageRating = totalRating / ratingsCount; // number of ratings / totalRating = averageRatings
+      updatedBook.averageRating = Math.round(updatedBook.averageRating); // if 0,5 round to 1
+      console.log(updatedBook.averageRating);
+      return updatedBook.save(); // Save the averageRatings
+    })
+    .then(updatedBook => { // Succes and return book to FrontEnd
+      res.status(200).json({ ...updatedBook._doc });
+    })
+    .catch(error => {
+      res.status(500).json({ error });
+    });
+};

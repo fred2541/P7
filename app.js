@@ -32,9 +32,10 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use('/images', express.static(imagesDirectory));
 app.use('/api/auth', userRoutes);
 app.use('/api/books', bookRoutes);
-app.use('/images', express.static(imagesDirectory));
+
 
 
 
