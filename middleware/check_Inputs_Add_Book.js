@@ -12,6 +12,6 @@ module.exports = (req, res, next) => {
         (bookObject.genre.length > 80) || (bookObject.genre.length <= 0) ? genererErreur("Genre") : null ;        
         next();
     } catch(error) {
-        res.status(401).json({ message: error.toString() + ' invalide!' });
+        res.status(400).json({ message: error.toString() + ' invalide!' });
     }
 };

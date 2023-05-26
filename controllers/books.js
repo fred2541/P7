@@ -26,7 +26,7 @@ exports.booksAdd = (req, res, next) => {
     });
     book
       .save()
-      .then(() => res.status(200).json({ message: "livre ajouté avec succès" })) // Pensez a changer le status en 200 !!!
+      .then(() => res.status(201).json({ message: "livre ajouté avec succès" }))
       .catch((error) => res.status(400).json({ error }));
   } catch (error) {
     res.status(400).json({ message: error.toString() });
@@ -56,7 +56,7 @@ exports.bookRating = (req, res, next) => {
     })
     .then((updatedBook) => {
       // Succes and return book to FrontEnd
-      res.status(200).json({ ...updatedBook._doc });
+      res.status(201).json({ ...updatedBook._doc });
     })
     .catch((error) => {
       res.status(500).json({ error });

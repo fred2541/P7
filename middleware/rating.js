@@ -8,7 +8,7 @@ module.exports = (req, res, next) => {
     Book.findOne({'ratings.userId': req.auth.userId})
         .then(rating => {
             if (rating) { // if rating FALSE = no rating for this user OR livre dont exist !
-              res.status(500).json({ message: 'Vous avez déjà voté ou livre inexistant !' });
+              res.status(401).json({ message: 'Vous avez déjà voté ou livre inexistant !' });
             } else {
               next();
             }
