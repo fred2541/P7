@@ -11,5 +11,5 @@ DB_LOGIN= Login de votre basse
 DB_PASSWD= Password de la basse
 CLUSTER_ADDR= Adresse du cluster
 
-FOLDER_IMAGES=images/ // Dossier dans lequel seront sauvegarder les images
+FOLDER_IMAGES <= NE PAS MODIFIER CETTE VARIABLE Merci
 
