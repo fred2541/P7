@@ -4,8 +4,7 @@ const fs = require("fs"); // for delete file in FS
 const FOLDER_IMAGES = process.env.FOLDER_IMAGES;
 
 const deleteImage = (req, res, next) => {
-  if (req.params.hasOwnProperty("id") && req.file) { // Only if send new file !
-    // Delete old image file before
+  if (req.params.hasOwnProperty("id")) { // if delete book or update book => delete picture first
     const bookId = req.params.id;
     Book.findOne({ _id: bookId }) // Get the book by id
       .then((books) => {
