@@ -10,6 +10,3 @@ TOKEN_EXPIRES_IN=1h // Temp de validation  des Token JWT
 DB_LOGIN= Login de votre basse
 DB_PASSWD= Password de la basse
 CLUSTER_ADDR= Adresse du cluster
-
-FOLDER_IMAGES <= NE PAS MODIFIER CETTE VARIABLE Merci
-

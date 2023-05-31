@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 require('dotenv').config(); // https://medium.com/codait/environment-variables-or-keeping-your-secrets-secret-in-a-node-js-app-99019dfff716
 
-
+process.env.FOLDER_IMAGES = 'images/'; // Dont remove this lign !!!!
 const DB_LOGIN = process.env.DB_LOGIN;
 const DB_PASSWD = process.env.DB_PASSWD;
 const CLUSTER_ADDR = process.env.CLUSTER_ADDR;
