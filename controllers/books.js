@@ -84,7 +84,7 @@ exports.bookDelete = (req, res, next) => {
   Book.findByIdAndDelete(idToDelete)
     .then((deletedField) => {
       if (deletedField) {
-        res.status(200).json({ message: 'Livre supprimer avec succes' });
+        res.status(200).json({ message: 'OK' });
       } else {
         console.log('Tentative de suppresson d\'un livre inéxistant !');
         res.status(200).json({ message: 'Livre supprimer avec succes' });
