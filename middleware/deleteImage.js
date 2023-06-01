@@ -12,7 +12,6 @@ const deleteImage = (req, res, next) => {
         const pathToDelete = FOLDER_IMAGES + fileToDelete;
         try {
           fs.unlinkSync(pathToDelete);
-          console.log("Delete: " + pathToDelete);
           const bookObject = req.body; // read body book info
           req.body.book = JSON.stringify(bookObject); // put book in req.body.book
           next();

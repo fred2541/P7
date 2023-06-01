@@ -20,7 +20,7 @@ mongoose.connect('mongodb+srv://' + DB_LOGIN +':' + DB_PASSWD + '@' + CLUSTER_AD
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
-  .catch(() => console.log('Connexion à MongoDB échouée !'));  // utiliser error pour faire remonter l'erreur en elle meme
+  .catch((err) => console.log('Connexion à MongoDB échouée !', err));
 
 app.use(express.json());
 
@@ -34,8 +34,5 @@ app.use((req, res, next) => {
 app.use('/images', express.static(imagesDirectory));
 app.use('/api/auth', userRoutes);
 app.use('/api/books', bookRoutes);
-
-
-
 
 module.exports = app;

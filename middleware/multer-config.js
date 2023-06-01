@@ -17,7 +17,7 @@ const upload = multer({ storage: storage, fileFilter: fileFilter }).single('imag
 const multerMiddleware = (req, res, next) => {
     upload(req, res, (error) => {
       // if error undefined => ok no error, else 400 => stop the route
-      error === undefined ? next() : res.status(400).json({ message: error.toString() });
+      error === undefined ? next() : res.status(400).json({ message: error });
     });
   };
 

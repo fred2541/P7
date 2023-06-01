@@ -5,15 +5,12 @@ const FOLDER_IMAGES = process.env.FOLDER_IMAGES;
 
 
 const resizeImage = (req, res, next) => {
-//    console.log(req.params);
     if (!req.file) {
     // No picture
-    console.log('No picture to resize');
     const bookObject = req.body; // read body book info
     req.body.book = JSON.stringify(bookObject); // put book in req.body.book
     return next();
   }
-  console.log('Resize image');
   
   const fileNameImage = FOLDER_IMAGES + req.file.originalname.split('.').shift() + '-' + Date.now() + '.webp'; // filename without .ext
   const fullUrlImage = 'http://localhost:4000/' + fileNameImage;

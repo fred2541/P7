@@ -4,9 +4,6 @@ const RANDOM_TOKEN_SECRET = process.env.RANDOM_TOKEN_SECRET;
 const TOKEN_EXPIRES_IN = process.env.TOKEN_EXPIRES_IN;
 
 const User = require('../models/User');
-const { json } = require('express');
-// const { use } = require('../app');
-
 
 exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
@@ -23,7 +20,6 @@ exports.signup = (req, res, next) => {
 };
 
 exports.login = (req, res, next) => {
-    console.log('Login...');
     User.findOne({email: req.body.email})
         .then(user => {
             if (user === null) {
@@ -42,7 +38,6 @@ exports.login = (req, res, next) => {
                                     { expiresIn: TOKEN_EXPIRES_IN}
                                 )
                             });
-                            console.log('Connexion ok');
                         }
                     })
                     .catch(error => {

@@ -4,8 +4,9 @@ const checkPassword = (req, res, next) => {
 
     if (!regex.test(password)) {
         return res.status(400).json({ error: "Le mot de passe doit contenir au moins une majuscule et être d'une longueur minimale de 8 caractères." });
+    }else {
+        next();
     }
-    next();
 };
 
 module.exports = checkPassword;
