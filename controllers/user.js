@@ -2,11 +2,12 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const RANDOM_TOKEN_SECRET = process.env.RANDOM_TOKEN_SECRET;
 const TOKEN_EXPIRES_IN = process.env.TOKEN_EXPIRES_IN;
+const SALT = process.env.SALT;
 
 const User = require('../models/User');
 
 exports.signup = (req, res, next) => {
-    bcrypt.hash(req.body.password, 10)
+    bcrypt.hash(req.body.password, SALT)
         .then(hash => {
             const user = new User({
                 email: req.body.email,

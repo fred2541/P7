@@ -10,3 +10,4 @@ TOKEN_EXPIRES_IN=1h // Temp de validation  des Token JWT
 DB_LOGIN= Login de votre basse
 DB_PASSWD= Password de la basse
 CLUSTER_ADDR= Adresse du cluster
+SALT=10 // number of round before use hash
