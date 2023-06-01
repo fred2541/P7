@@ -15,10 +15,7 @@ exports.bookId = (req, res, next) => {
 };
 
 exports.booksAdd = (req, res, next) => {
-  console.log("Ajout d'un livre");
-
   const bookObject = JSON.parse(req.body.book);
-
   try {
     const book = new Book({
       userId: req.auth.userId,
@@ -29,7 +26,7 @@ exports.booksAdd = (req, res, next) => {
       .then(() => res.status(201).json({ message: "livre ajouté avec succès" }))
       .catch((error) => res.status(400).json({ error }));
   } catch (error) {
-    res.status(400).json({ message: error.toString() });
+    res.status(400).json({ message: error });
   }
 };
 
@@ -63,7 +60,6 @@ exports.bookRating = (req, res, next) => {
 };
 
 exports.bookUpdate = (req, res, next) => {
-  console.log("Update book");
   const bookObject = JSON.parse(req.body.book);
   const bookIdToUpdate = req.params.id;
   const userId = req.auth.userId;
@@ -77,7 +73,6 @@ exports.bookUpdate = (req, res, next) => {
 };
 
 exports.bookDelete = (req, res, next) => {
-  console.log("Delete book");
   const idToDelete = req.params.id;
 
   Book.findByIdAndDelete(idToDelete)
@@ -92,8 +87,6 @@ exports.bookDelete = (req, res, next) => {
 };
 
 exports.bookBestRating = (req, res, next) => {
-  console.log("BestRating");
-  
   Book.find()
     .sort({ averageRating: -1}) // best rating in first
     .limit(3) // max result
@@ -102,7 +95,7 @@ exports.bookBestRating = (req, res, next) => {
       res.status(200).json(books);
     })
     .catch((error) => {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({ error: error });
     })
 
 };
