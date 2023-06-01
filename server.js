@@ -1,6 +1,12 @@
 const http = require('http');
 const app = require('./app');
-const { log } = require('console');
+const mongoose = require('mongoose');
+require('dotenv').config();
+
+const DB_LOGIN = process.env.DB_LOGIN;
+const DB_PASSWD = process.env.DB_PASSWD;
+const CLUSTER_ADDR = process.env.CLUSTER_ADDR;
+process.env.FOLDER_IMAGES = 'images/'; // Dont remove this lign !!!!
 
 const normalizePort = val => {
   const port = parseInt(val, 10);
@@ -46,3 +52,9 @@ server.on('listening', () => {
 });
 
 server.listen(port);
+
+mongoose.connect('mongodb+srv://' + DB_LOGIN +':' + DB_PASSWD + '@' + CLUSTER_ADDR + '/?retryWrites=true&w=majority',
+  { useNewUrlParser: true,
+    useUnifiedTopology: true })
+  .then(() => console.log('Connexion à MongoDB réussie !'))
+  .catch((err) => console.log('Connexion à MongoDB échouée !', err));

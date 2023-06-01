@@ -1,12 +1,5 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const path = require('path');
-require('dotenv').config(); // https://medium.com/codait/environment-variables-or-keeping-your-secrets-secret-in-a-node-js-app-99019dfff716
-
-process.env.FOLDER_IMAGES = 'images/'; // Dont remove this lign !!!!
-const DB_LOGIN = process.env.DB_LOGIN;
-const DB_PASSWD = process.env.DB_PASSWD;
-const CLUSTER_ADDR = process.env.CLUSTER_ADDR;
 
 
 const app = express();
@@ -15,12 +8,6 @@ const userRoutes = require('./routes/user');
 const bookRoutes = require('./routes/books');
 
 const imagesDirectory = path.join(__dirname, 'images');
-
-mongoose.connect('mongodb+srv://' + DB_LOGIN +':' + DB_PASSWD + '@' + CLUSTER_ADDR + '/?retryWrites=true&w=majority',
-  { useNewUrlParser: true,
-    useUnifiedTopology: true })
-  .then(() => console.log('Connexion à MongoDB réussie !'))
-  .catch((err) => console.log('Connexion à MongoDB échouée !', err));
 
 app.use(express.json());
 
