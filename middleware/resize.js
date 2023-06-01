@@ -1,5 +1,4 @@
 const sharp = require('sharp');
-
 const Book = require('../models/Books');
 const FOLDER_IMAGES = process.env.FOLDER_IMAGES;
 

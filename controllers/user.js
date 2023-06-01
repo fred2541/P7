@@ -2,12 +2,14 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const RANDOM_TOKEN_SECRET = process.env.RANDOM_TOKEN_SECRET;
 const TOKEN_EXPIRES_IN = process.env.TOKEN_EXPIRES_IN;
-const SALT = process.env.SALT;
+const SALT = +process.env.SALT; // operator unaire => convert to number
 
 const User = require('../models/User');
 
 exports.signup = (req, res, next) => {
-    bcrypt.hash(req.body.password, SALT)
+    bcrypt.genSalt(SALT)
+
+    .then ( salt=> {bcrypt.hash(req.body.password, salt)
         .then(hash => {
             const user = new User({
                 email: req.body.email,
@@ -17,7 +19,7 @@ exports.signup = (req, res, next) => {
                 .then(() => res.status(201).json({ message: 'Utilisateur créé !'}))
                 .catch(error => res.status(400).json({ error }));
         })
-        .catch(error => res.status(500).json({ error }));
+        .catch(error => res.status(500).json({ message: error.toString() }));})
 };
 
 exports.login = (req, res, next) => {
