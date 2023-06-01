@@ -10,7 +10,6 @@ const CLUSTER_ADDR = process.env.CLUSTER_ADDR;
 
 
 const app = express();
-const router = express.Router();
 
 const userRoutes = require('./routes/user');
 const bookRoutes = require('./routes/books');
@@ -21,7 +20,7 @@ mongoose.connect('mongodb+srv://' + DB_LOGIN +':' + DB_PASSWD + '@' + CLUSTER_AD
   { useNewUrlParser: true,
     useUnifiedTopology: true })
   .then(() => console.log('Connexion à MongoDB réussie !'))
-  .catch(() => console.log('Connexion à MongoDB échouée !'));
+  .catch(() => console.log('Connexion à MongoDB échouée !'));  // utiliser error pour faire remonter l'erreur en elle meme
 
 app.use(express.json());
 

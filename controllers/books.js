@@ -51,7 +51,6 @@ exports.bookRating = (req, res, next) => {
       ); // Add all ratings number to totalRating
       updatedBook.averageRating = totalRating / ratingsCount; // number of ratings / totalRating = averageRatings
       updatedBook.averageRating = Math.round(updatedBook.averageRating); // if 0,5 round to 1
-      console.log(updatedBook.averageRating);
       return updatedBook.save(); // Save the averageRatings
     })
     .then((updatedBook) => {
