@@ -5,8 +5,10 @@ const router = express.Router();
 
 const userCtrl = require('../controllers/user');
 const checkPassword = require('../middleware/check_password');
+const { RLSignup, RLRead } = require('../middleware/rate_limiter');
 
-router.post('/signup', checkPassword , userCtrl.signup);
-router.post('/login', userCtrl.login);
+
+router.post('/signup', RLSignup, checkPassword , userCtrl.signup);
+router.post('/login', RLRead, userCtrl.login);
 
 module.exports = router;
