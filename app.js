@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const helmet = require('helmet');
+const cors = require('cors');
 require('dotenv').config();
 process.env.FOLDER_IMAGES = 'images/'; // Dont remove this lign !!!!
 
@@ -11,7 +12,10 @@ const bookRoutes = require('./routes/books');
 
 const imagesDirectory = path.join(__dirname, 'images');
 
-app.use(helmet());
+app.use(helmet({
+  crossOriginResourcePolicy: false,
+}));
+//app.use(cors());
 app.use(express.json());
 
 app.use((req, res, next) => {

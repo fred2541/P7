@@ -3,7 +3,7 @@ const Book = require('../models/Books');
 const FOLDER_IMAGES = process.env.FOLDER_IMAGES;
 
 
-const resizeImage = (req, res, next) => {
+const resizeImage = async (req, res, next) => {
     if (!req.file) {
     // No picture
     const bookObject = req.body; // read body book info
@@ -15,18 +15,20 @@ const resizeImage = (req, res, next) => {
   const fullUrlImage = 'http://localhost:4000/' + fileNameImage;
   const bookObject = JSON.parse(req.body.book);
   bookObject.imageUrl = fullUrlImage;
-  req.body.book = JSON.stringify(bookObject); // Add fullurl to request
+  req.body.book = JSON.stringify(bookObject);
+  // console.log(req.body.book);
 
   // resize and convert to webp
-  sharp(req.file.buffer)
-    .resize(800)
-    .webp({ quality: 90 })
-    .toFile(fileNameImage, (err, info) => {
-        if (err) {
-            callback(err);
-          }
-    });
+  try {
+    await sharp(req.file.buffer)
+      .resize(800)
+      .webp({ quality: 90 })
+      .toFile(fileNameImage);
     next();
+  } catch (err) {
+    console.error("Impossible de travailler l'image :", err);
+    next();
+  }  
 };
 
 module.exports = resizeImage;

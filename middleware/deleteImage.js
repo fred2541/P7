@@ -12,8 +12,6 @@ const deleteImage = (req, res, next) => {
         const pathToDelete = FOLDER_IMAGES + fileToDelete;
         try {
           fs.unlinkSync(pathToDelete);
-          const bookObject = req.body; // read body book info
-          req.body.book = JSON.stringify(bookObject); // put book in req.body.book
           next();
         } catch (err) {
           console.error("Impossible de supprimer le fichier :", err);

@@ -16,6 +16,7 @@ exports.bookId = (req, res, next) => {
 
 exports.booksAdd = (req, res, next) => {
   const bookObject = JSON.parse(req.body.book);
+  
   try {
     const book = new Book({
       userId: req.auth.userId,
