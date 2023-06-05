@@ -2,7 +2,7 @@ function genererErreur(message) {
     throw new Error(message);
   }
 
- const titleRegex = /^[a-zA-Z0-9\s!?_]{1,80}$/; // a-z A-Z 0-9 /s(espace)  !?-_ (special charactere)
+const titleRegex = /^[a-zA-Z0-9\s!:.'?_]{1,80}$/; // a-z A-Z 0-9 /s(espace)  !?-_ (special charactere)
 const authorRegex = /^[a-zA-Z\s'-]{1,80}$/;
 const genreRegex = /^[a-zA-Z\s]{1,80}$/;
 const ratingRegex = /^[1-5]$/; // only 1-5
