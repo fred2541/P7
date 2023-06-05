@@ -15,10 +15,13 @@ module.exports = (req, res, next) => {
         !bookObject.title.match(titleRegex) ? genererErreur("Titre") : null ;
         !bookObject.author.match(authorRegex) ? genererErreur("Auteur") : null ;
         !bookObject.genre.match(genreRegex) ? genererErreur("Genre") : null ;
+        if (req.route.methods.post) { // no ratings or average on put methode
         !bookObject.ratings[0].grade.toString().match(ratingRegex) ? genererErreur("Vote") : null ;
         !bookObject.averageRating.toString().match(ratingRegex) ? genererErreur("Vote") : null ;
+        }
         next();
     } catch(error) {
+        console.log(error);
         res.status(400).json({ message: error.toString() + ' invalide!' });
     }
 };

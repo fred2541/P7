@@ -25,7 +25,7 @@ router.get('/:id', RLRead, bookCtrl.bookId);////////////////////////////////////
 /////////// Secure routes......./////////////////////////////////////////////////
 router.post('/', RLWrite, auth, multer, resizeImage, checkInput, bookCtrl.booksAdd);
 router.post('/:id/rating', RLWrite, auth, checkRatings, bookCtrl.bookRating);
-router.put('/:id', RLWrite, auth, multer, deleteImage, resizeImage, bookCtrl.bookUpdate);
+router.put('/:id', RLWrite, auth, multer, deleteImage, resizeImage, checkInput, bookCtrl.bookUpdate);
 router.delete('/:id', RLWrite, auth, deleteImage, bookCtrl.bookDelete);
 
 

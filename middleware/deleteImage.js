@@ -14,8 +14,7 @@ const deleteImage = (req, res, next) => {
           fs.unlinkSync(pathToDelete);
           next();
         } catch (err) {
-          console.error("Impossible de supprimer le fichier :", err);
-          next();
+          next(); // On error => next (fs error or other)
         }
       })
       .catch((err) => {
