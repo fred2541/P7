@@ -15,7 +15,6 @@ const imagesDirectory = path.join(__dirname, 'images');
 app.use(helmet({
   crossOriginResourcePolicy: false,
 }));
-//app.use(cors());
 app.use(express.json());
 
 app.use((req, res, next) => {
